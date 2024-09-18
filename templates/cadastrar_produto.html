@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastrar Produto</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <header>
+        <h1>Cadastrar Produto</h1>
+    </header>
+
+    <div class="navbar">
+        <a href="{{ url_for('cadastrar_usuario') }}">Cadastrar Usuário</a>
+        <a href="{{ url_for('logout') }}">Logout</a>
+    </div>
+
+    <div class="container">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="flash {{ category }}">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+        
+        <form method="POST">
+            <label for="nome">Nome do Produto:</label>
+            <input type="text" id="nome" name="nome" required><br>
+            
+            <label for="qtde">Quantidade:</label>
+            <input type="number" id="qtde" name="qtde" required><br>
+            
+            <label for="preco">Preço:</label>
+            <input type="text" id="preco" name="preco" required><br>
+            
+            <button type="submit">Cadastrar</button>
+        </form>
+
+        <h2>Produtos Cadastrados:</h2>
+        <div class="product-list">
+            {% for produto in produtos %}
+                <p>Nome: {{ produto[0] }} - Quantidade: {{ produto[1] }} - Preço: R$ {{ produto[2] }}</p>
+            {% else %}
+                <p>Nenhum produto cadastrado.</p>
+            {% endfor %}
+        </div>
+    </div>
+</body>
+</html>
